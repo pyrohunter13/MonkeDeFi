@@ -1,5 +1,5 @@
 # Monke DeFi
 
-A prototype for Decentralize Finance Application
+A prototype Decentralize Finance Application
 
 ## 
