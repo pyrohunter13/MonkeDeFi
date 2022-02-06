@@ -18,6 +18,7 @@ dependencies:
   http: ^0.13.0
   syncfusion_flutter_sliders: ^19.3.44
   web3dart: ^2.3.1
+  velocity_x: ^3.4.0
   # velocity_x: ^0.12.2
   # http: ^0.12.2
 

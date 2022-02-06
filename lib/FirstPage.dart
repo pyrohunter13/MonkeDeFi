@@ -14,7 +14,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPage extends State<FirstPage> {
   int _selectedIndex = 0;
-  static const List<Widget> _screenList = [
+  List<Widget> _screenList = [
     WalletPage(),
     MonkeWorldPage(),
     ProfilePage(),
