@@ -14,8 +14,6 @@ class Withdraw extends StatefulWidget {
   }
 }
 
-
-
 class _WithdrawState extends State<Withdraw> {
   TextEditingController inputAddress = TextEditingController();
   TextEditingController inputAmount = TextEditingController();

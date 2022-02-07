@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_new, sized_box_for_whitespace
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_new, sized_box_for_whitespace, unused_local_variable
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,9 +18,46 @@ class _WalletPageState extends State<WalletPage> {
   late Client httpClient;
   late Web3Client ethClient;
   bool data = false;
-  final myAddress = "";
+  final myAddress = "0x1F5F2dda3cF06C72eF04bC31b29D2f66D4848435";
   int myAmount = 0;
 
+  var myData;
+
+  @override
+  void initState() {
+    super.initState();
+    httpClient = Client();
+    ethClient = Web3Client(
+        'https://rinkeby.infura.io/v3/e71a048894e046329a51520bc9fd2d25',
+        httpClient);
+    getBalance(myAddress);
+  }
+
+  Future<DeployedContract> loadContract() async {
+    String abi = await rootBundle.loadString("assets/abi.json");
+    String contractAddress = "0xD714dd2C31E13E0F9dD4E82eDb8021Ca279a7014";
+
+    final contract = DeployedContract(
+        ContractAbi.fromJson(abi, "WAYAKSMARTCONTRACT"),
+        EthereumAddress.fromHex(contractAddress));
+    return contract;
+  }
+
+  Future<List<dynamic>> query(String functionName, List<dynamic> args) async {
+    final contract = await loadContract();
+    final ethFunction = contract.function(functionName);
+    final result = await ethClient.call(
+        contract: contract, function: ethFunction, params: args);
+    return result;
+  }
+
+  Future<void> getBalance(String targetAddress) async {
+    EthereumAddress address = EthereumAddress.fromHex(targetAddress);
+    List<dynamic> result = await query("getBalance", []);
+    myData = result[0];
+    data = true;
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +69,15 @@ class _WalletPageState extends State<WalletPage> {
             .make(),
         VStack([
           (context.percentHeight * 10).heightBox,
-          "\$WYK".text.xl4.white.bold.center.makeCentered().py16(),
+          "\$ETH".text.xl4.white.bold.center.makeCentered().py16(),
           (context.percentHeight).heightBox,
           VxBox(
                   child: VStack([
             "Balance".text.gray700.xl2.semiBold.makeCentered(),
             10.heightBox,
             data
-                ? "\$1".text.bold.xl6.makeCentered()
-                : CircularProgressIndicator().centered()
+                ? "${myData} ETH".text.bold.xl6.makeCentered()
+                : CircularProgressIndicator().centered().shimmer()
           ]))
               .white
               .size(context.percentWidth * 1000, context.percentHeight * 18)
@@ -52,7 +89,9 @@ class _WalletPageState extends State<WalletPage> {
           HStack(
             [
               FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        getBalance(myAddress);
+                      },
                       color: Colors.blue,
                       shape: Vx.roundedSm,
                       icon: Icon(
@@ -62,9 +101,7 @@ class _WalletPageState extends State<WalletPage> {
                       label: "Refresh".text.white.make())
                   .h(50),
               FlatButton.icon(
-                      onPressed: () {
-                        
-                      },
+                      onPressed: () {},
                       color: Colors.green,
                       shape: Vx.roundedSm,
                       icon: Icon(
@@ -74,7 +111,9 @@ class _WalletPageState extends State<WalletPage> {
                       label: "Deposit".text.white.make())
                   .h(50),
               FlatButton.icon(
-                      onPressed: () {Navigator.pushNamed(context, '/withdraw');},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/withdraw');
+                      },
                       color: Colors.red,
                       shape: Vx.roundedSm,
                       icon: Icon(
