@@ -1,5 +1,5 @@
-# Monke DeFi
+# Monke Wallet
 
-A prototype Decentralize Finance Application
+A prototype crypto wallet
 
 ## 
