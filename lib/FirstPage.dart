@@ -23,7 +23,7 @@ class _FirstPage extends State<FirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screenList[_selectedIndex],
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,

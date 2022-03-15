@@ -35,10 +35,10 @@ class _WalletPageState extends State<WalletPage> {
 
   Future<DeployedContract> loadContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "0xD714dd2C31E13E0F9dD4E82eDb8021Ca279a7014";
+    String contractAddress = "0x1053Fd5f4FEd104e2CE09785F63903371271fa2b";
 
     final contract = DeployedContract(
-        ContractAbi.fromJson(abi, "WAYAKSMARTCONTRACT"),
+        ContractAbi.fromJson(abi, "WayakSmartContract"),
         EthereumAddress.fromHex(contractAddress));
     return contract;
   }
@@ -58,25 +58,26 @@ class _WalletPageState extends State<WalletPage> {
     data = true;
     setState(() {});
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: ZStack([
         VxBox()
-            .blue600
+            .gray800
             .size(context.screenWidth, context.percentHeight * 30)
             .make(),
         VStack([
           (context.percentHeight * 10).heightBox,
-          "\$ETH".text.xl4.white.bold.center.makeCentered().py16(),
+          "\$ WAYAK MONKE".text.xl4.white.bold.center.makeCentered().py16(),
           (context.percentHeight).heightBox,
           VxBox(
                   child: VStack([
             "Balance".text.gray700.xl2.semiBold.makeCentered(),
             10.heightBox,
             data
-                ? "${myData} ETH".text.bold.xl6.makeCentered()
+                ? "${myData} WYK".text.bold.xl6.makeCentered()
                 : CircularProgressIndicator().centered().shimmer()
           ]))
               .white
@@ -85,7 +86,7 @@ class _WalletPageState extends State<WalletPage> {
               .shadowXl
               .make()
               .p16(),
-          30.heightBox,
+          10.heightBox,
           HStack(
             [
               FlatButton.icon(

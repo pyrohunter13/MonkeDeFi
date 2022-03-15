@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, annotate_overrides, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, annotate_overrides, prefer_const_literals_to_create_immutables, camel_case_types, prefer_const_constructors_in_immutables
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class splashScreen extends StatefulWidget {
+  splashScreen({Key? key}) : super(key: key);
   @override
   _splashScreenState createState() => _splashScreenState();
 }
@@ -45,6 +46,7 @@ class _splashScreenState extends State<splashScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(11, 12, 54, 1),
       body: Container(
         child: Center(
           child: Column(

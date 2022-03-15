@@ -19,6 +19,11 @@ dependencies:
   syncfusion_flutter_sliders: ^19.3.44
   web3dart: ^2.3.1
   velocity_x: ^3.4.0
+  dio: ^4.0.4
+  cached_network_image: ^3.0.0
+  flutter_svg: ^0.22.0
+  syncfusion_flutter_charts: ^19.1.67
+  intl: ^0.17.0
   # velocity_x: ^0.12.2
   # http: ^0.12.2
 
@@ -38,3 +43,5 @@ flutter:
   assets:
     - .env
     - assets/abi.json
+    - assets/icons/
+    - assets/images/
