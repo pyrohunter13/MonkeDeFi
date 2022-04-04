@@ -63,10 +63,15 @@ class CoinDetailScreen extends StatelessWidget {
               coinPrice: coinPrice, outputDate: outputDate, data: data),
           SliverToBoxAdapter(
             child: Container(
+              //             decoration: new BoxDecoration(
+              //   color: Colors.green
+              // ),
               height: 600,
               child: Column(
+                
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // CoinRandomedChartWidget(coinPrice: coinPrice, outputDate: outputDate, data: data),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     height: 400.0,
@@ -138,7 +143,7 @@ class CoinDetailScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child:                         Container(
+            child:Container(
                           margin: const EdgeInsets.fromLTRB(50, 10, 50, 100),
                           padding: const EdgeInsets.all(25),
                           decoration: BoxDecoration(

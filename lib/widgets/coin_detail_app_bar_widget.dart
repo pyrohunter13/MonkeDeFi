@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
+import 'package:wykmonke/widgets/widgets.dart';
 import 'package:wykmonke/models/fetch_coins_models.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -18,8 +18,8 @@ class CoinDetailAppBar extends StatelessWidget {
     return SliverAppBar(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36.0)),
       pinned: true,
-      snap: true,
-      floating: true,
+      snap: false,
+      floating: false,
       expandedHeight: 280.0,
       flexibleSpace: FlexibleSpaceBar(
         title: Container(

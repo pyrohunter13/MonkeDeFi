@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wykmonke/Deposit.dart';
 import 'package:wykmonke/Withdraw.dart';
 import 'package:wykmonke/firstPage.dart';
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => splashScreen(),
         '/first': (context) => FirstPage(),
-        '/withdraw': (context) => Withdraw()
+        '/withdraw': (context) => Withdraw(),
+        '/deposit': (context) => Deposit(),
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter/services.dart';
 
+
 class WalletPage extends StatefulWidget {
   const WalletPage({Key? key}) : super(key: key);
 
@@ -35,7 +36,7 @@ class _WalletPageState extends State<WalletPage> {
 
   Future<DeployedContract> loadContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "0x1053Fd5f4FEd104e2CE09785F63903371271fa2b";
+    String contractAddress = "0xFd73248847D5827f4019f7bBa073770BB666738D";
 
     final contract = DeployedContract(
         ContractAbi.fromJson(abi, "WayakSmartContract"),
@@ -58,14 +59,45 @@ class _WalletPageState extends State<WalletPage> {
     data = true;
     setState(() {});
   }
-  
+
+  Future<String> submit(String functionName, List<dynamic> args) async {
+    EthPrivateKey credentials = EthPrivateKey.fromHex(
+        '5c1758d8d9dd8bce16749078e20c38a9e2bd51171ca6875e4b5b98b8ad002ef2');
+
+    DeployedContract contract = await loadContract();
+    final ethFunction = contract.function(functionName);
+    final result = await ethClient.sendTransaction(
+        credentials,
+        Transaction.callContract(
+            contract: contract, function: ethFunction, parameters: args),fetchChainIdFromNetworkId: true);
+    return result;
+  }
+
+  Future<String> sendCoin() async {
+    var bigAmount = BigInt.from(myAmount);
+
+    var response = await submit("depositBalance", [bigAmount]);
+
+    print("deposited");
+    return response;
+  }
+
+  Future<String> withdrawCoin() async {
+    var bigAmount = BigInt.from(myAmount);
+
+    var response = await submit("withdrawBalance", [bigAmount]);
+
+    print("withdrawn");
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.black,
       body: ZStack([
         VxBox()
-            .gray800
+            .gradientFromTo(from: Colors.black, to: Color.fromRGBO(0, 29, 104, 0.8))
             .size(context.screenWidth, context.percentHeight * 30)
             .make(),
         VStack([
@@ -102,7 +134,9 @@ class _WalletPageState extends State<WalletPage> {
                       label: "Refresh".text.white.make())
                   .h(50),
               FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/deposit');
+                      },
                       color: Colors.green,
                       shape: Vx.roundedSm,
                       icon: Icon(
@@ -126,7 +160,8 @@ class _WalletPageState extends State<WalletPage> {
             ],
             alignment: MainAxisAlignment.spaceAround,
             axisSize: MainAxisSize.max,
-          ).p16()
+          ).p16(),
+
         ])
       ]),
     );

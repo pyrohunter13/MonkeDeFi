@@ -24,6 +24,11 @@ dependencies:
   flutter_svg: ^0.22.0
   syncfusion_flutter_charts: ^19.1.67
   intl: ^0.17.0
+  # cupertino_icons: ^1.0.2
+  # firebase_core: ^1.13.1 
+  # firebase_auth: ^3.3.8
+  # provider: ^6.0.2
+  # cloud_firestore: ^3.1.9
   # velocity_x: ^0.12.2
   # http: ^0.12.2
 

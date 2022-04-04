@@ -25,7 +25,7 @@ class _CoinRandomedChartWidgetState extends State<CoinRandomedChartWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
-      pinned: true,
+      pinned: false,
       delegate: SliverAppBarDelegate(
         minHeight: 360.0,
         maxHeight: 360.0,

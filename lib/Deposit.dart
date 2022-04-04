@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: prefer_const_constructors_in_immutables, file_names, duplicate_ignore, unnecessary_new, duplicate_import, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, file_names, duplicate_ignore, unnecessary_new, duplicate_import, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +7,16 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-class Withdraw extends StatefulWidget {
-  const Withdraw({Key? key}) : super(key: key);
+class Deposit extends StatefulWidget {
+  const Deposit({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _WithdrawState();
+    return _DepositState();
   }
 }
 
-class _WithdrawState extends State<Withdraw> {
+class _DepositState extends State<Deposit> {
   final TextEditingController inputAddress = new TextEditingController();
   final TextEditingController inputAmount = new TextEditingController();
   late Client httpClient;
@@ -71,17 +71,21 @@ class _WithdrawState extends State<Withdraw> {
     final result = await ethClient.sendTransaction(
         credentials,
         Transaction.callContract(
-            contract: contract, function: ethFunction, parameters: args),
+          contract: contract,
+          function: ethFunction,
+          parameters: args,
+          // nonce: await ,
+        ),
         chainId: 4);
     return result;
   }
 
-  Future<String> withdrawCoin() async {
+  Future<String> sendCoin() async {
     var bigAmount = BigInt.from(myAmount);
 
-    var response = await submit("withdrawBalance", [bigAmount]);
+    var response = await submit("depositBalance", [bigAmount]);
 
-    print("withdrawn");
+    print("deposited");
     return response;
   }
 
@@ -113,7 +117,7 @@ class _WithdrawState extends State<Withdraw> {
               child: Column(
                 children: [
                   Text(
-                    "Withdraw",
+                    "Deposit",
                     style: TextStyle(color: Colors.white, fontSize: 40),
                   ),
                   SizedBox(
@@ -124,7 +128,7 @@ class _WithdrawState extends State<Withdraw> {
                     child: Column(
                       children: [
                         Text(
-                          'Enter Amount to Withdraw',
+                          'Enter Amount to Deposit',
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Colors.white),
                         ),
@@ -152,7 +156,7 @@ class _WithdrawState extends State<Withdraw> {
                     child: Column(
                       children: [
                         Text(
-                          'Address',
+                          'BCA Account Number',
                           textAlign: TextAlign.left,
                           style: TextStyle(color: Colors.white),
                         ),
@@ -164,7 +168,7 @@ class _WithdrawState extends State<Withdraw> {
                   ),
                   TextField(
                     decoration: new InputDecoration(
-                        labelText: "Address",
+                        labelText: "BCA No.",
                         fillColor: Colors.white,
                         filled: true),
                     keyboardType: TextInputType.number,
@@ -178,7 +182,7 @@ class _WithdrawState extends State<Withdraw> {
             Align(
               alignment: Alignment.bottomCenter,
               child: RaisedButton(
-                onPressed: () =>withdrawCoin(),
+                onPressed: ()=>sendCoin(),
                 shape: StadiumBorder(),
                 color: Colors.white,
                 child: Container(
