@@ -32,7 +32,7 @@ class _WithdrawState extends State<Withdraw> {
     super.initState();
     httpClient = Client();
     ethClient = Web3Client(
-        'https://rinkeby.infura.io/v3/e71a048894e046329a51520bc9fd2d25',
+        'infuraAPIlink',
         httpClient);
     getBalance(myAddress);
   }
@@ -65,7 +65,7 @@ class _WithdrawState extends State<Withdraw> {
 
   Future<String> submit(String functionName, List<dynamic> args) async {
     EthPrivateKey credentials = EthPrivateKey.fromHex(
-        '5c1758d8d9dd8bce16749078e20c38a9e2bd51171ca6875e4b5b98b8ad002ef2');
+        'PRIVATEADDR');
 
     DeployedContract contract = await loadContract();
     final ethFunction = contract.function(functionName);
