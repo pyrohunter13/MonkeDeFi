@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: prefer_const_constructors_in_immutables, file_names, duplicate_ignore, unnecessary_new, duplicate_import, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, file_names, duplicate_ignore, unnecessary_new, duplicate_import, prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +17,14 @@ class Withdraw extends StatefulWidget {
 }
 
 class _WithdrawState extends State<Withdraw> {
-  final TextEditingController inputAddress = new TextEditingController();
-  final TextEditingController inputAmount = new TextEditingController();
+  TextEditingController inputAddress = new TextEditingController();
+  TextEditingController inputAmount = new TextEditingController();
   late Client httpClient;
   late Web3Client ethClient;
   bool data = false;
   final myAddress = "0x1F5F2dda3cF06C72eF04bC31b29D2f66D4848435";
   int myAmount = 0;
+  int par = 0;
   var myData;
 
   @override
@@ -135,6 +136,7 @@ class _WithdrawState extends State<Withdraw> {
                     height: 10,
                   ),
                   TextField(
+                    controller: inputAmount,
                     decoration: new InputDecoration(
                         labelText: "Amount",
                         fillColor: Colors.white,
@@ -163,6 +165,7 @@ class _WithdrawState extends State<Withdraw> {
                     height: 10,
                   ),
                   TextField(
+                    controller: inputAddress,
                     decoration: new InputDecoration(
                         labelText: "Address",
                         fillColor: Colors.white,
@@ -178,7 +181,13 @@ class _WithdrawState extends State<Withdraw> {
             Align(
               alignment: Alignment.bottomCenter,
               child: RaisedButton(
-                onPressed: () =>withdrawCoin(),
+                onPressed: () =>
+                    {
+                      par = int.parse(inputAmount.text), 
+                      myAmount = par,
+                      withdrawCoin()
+                      
+                      },
                 shape: StadiumBorder(),
                 color: Colors.white,
                 child: Container(
